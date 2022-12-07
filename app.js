@@ -4,42 +4,36 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const app = express();
 
-// const hbs  = require('hbs')
 
-// const html = require("html");
 
-const userRoute = require("./route/userRouter");
+const notFoundMiddleware =require('./middleware/not-found')
+const errorHandlerMiddleware =require('./middleware/error-handler')
+
+
+
+//routes
 const authroute = require("./route/authRouter");
 
-// hbs.registerPartials(__dirname + 'views/partials')
 
-//set det
-// app.set('public', path.join(__dirname, '/views'))
-// app.set('view engine', 'hbs')
-// // app.set("view engine", "html");
-
+// app.use(morgan('tiny'))
 app.use(bodyParser.json());
+app.use(express.json())
 app.use(bodyParser.urlencoded({ extended: false }));
-app.use("/user", userRoute);
-app.use("/auth", authroute);
+
+
+
+app.use(notFoundMiddleware)
+app.use(errorHandlerMiddleware)
+
+
+app.use("/api/auth", authroute);
+
 // app.use(express.static("./public"));
 
 const connectDB = require("./db/connect");
+const morgan = require("morgan");
 
-app.get("/", (req, res) => {
-  res.send("hello there");
-});
-
-app.get("/login", (req, res) => {
-  res.sendFile(__dirname + "/public/login.html");
-});
-
-app.get("/register", (req, res) => {
-  res.sendFile(__dirname + "/public/register.html");
-});
-
-//
-const PORT = process.env.PORT || 4000;
+const PORT = process.env.PORT || 5000;
 
 const start = async () => {
   try {

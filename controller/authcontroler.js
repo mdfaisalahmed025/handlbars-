@@ -1,12 +1,20 @@
 
+const User =require('../model/User')
+const {StatusCodes} =require('http-status-codes')
+const CustomError =require('../errors')
+
+
+
+
 const Register = async(req, res)=>{
-    // res.render("index", { tittle: "registartion" });
+    // const{email} =req.body;
+     const user = await User.create(req.body);
+     res.status(StatusCodes.CREATED).json({ user });
     
 }
 
 const Login =async (req, res) =>{
-   const username = req.body.username;
-   const password = req.body.password;
+   
    res.render("index");
 }
 
