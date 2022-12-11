@@ -1,7 +1,7 @@
 
 const User =require('../model/User')
 const {StatusCodes} =require('http-status-codes')
-const CustomError =require('../errors')
+// const CustomError =require('../errors')
 
 
 
@@ -15,7 +15,7 @@ const Register = async(req, res)=>{
 
 const Login =async (req, res) =>{
    
-   res.render("index");
+   res.send("this is login page")
 }
 
 const Logout =async (req, res) =>{
